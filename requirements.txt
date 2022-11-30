@@ -27,13 +27,6 @@ ipywidgets==8.0.2
 jedi==0.18.1
 Jinja2==3.1.2
 jsonschema==4.17.0
-jupyter==1.0.0
-jupyter-console==6.4.4
-jupyter-server==1.23.1
-jupyter_client==7.4.5
-jupyter_core==5.0.0
-jupyterlab-pygments==0.2.2
-jupyterlab-widgets==3.0.3
 MarkupSafe==2.1.1
 matplotlib-inline==0.1.6
 mistune==2.0.4
@@ -61,7 +54,6 @@ Pygments==2.13.0
 pyparsing==3.0.9
 pyrsistent==0.19.2
 PySocks==1.7.1
-pyTelegramBotAPI==4.7.1
 python-dateutil==2.8.2
 python-dotenv==0.21.0
 python-environ==0.4.54
