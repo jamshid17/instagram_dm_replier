@@ -10,24 +10,28 @@ from config import *
 import random 
 import environ
 
+
+env = environ.Env()
+environ.Env.read_env()
+BROWSER_PROFILE = env('BROWSER_PROFILE')
+
+
 def like_possibility():
-    rando = random.randint(4, 10)
-    x = round(rando/10)
-    if x == 1:
-        print('yeah')
-        return True
-    else:
-        print('nooo')
-        return False
+    return True
+    # rando = random.randint(4, 10)
+    # x = round(rando/10)
+    # if x == 1:
+    #     print('yeah')
+    #     return True
+    # else:
+    #     print('nooo')
+    #     return False
 
 def check_dm():
     #return_dict
     return_dict = {}
     #setting up driver
     fire_options = Options()
-    env = environ.Env()
-    environ.Env.read_env()
-    BROWSER_PROFILE = env('BROWSER_PROFILE')
     fire_options.profile = BROWSER_PROFILE
     # fire_options.headless = True
     service = Service(GeckoDriverManager().install())
@@ -45,10 +49,13 @@ def check_dm():
         pass 
     #pushing the notification bell
     notification_btn = driver.find_element(By.XPATH, "//a[contains(@href, '/direct/inbox/')]")
-    notification_icons = notification_btn.find_elements(By.XPATH, "//div[@class='_aayg']//div[@class='_aadh']")
-    if len(notification_icons):
+    notification_number_icons = notification_btn.find_elements(
+        By.XPATH, f".//div[@class='{notification_number_icon}']"
+        )
+
+    if len(notification_number_icons):
         notification_btn.click()
-        time.sleep(10)
+        time.sleep(5)
         #chat_rooms 
         message_rooms = driver.find_elements(By.XPATH, f"//div[@class='{message_rooms_class}']")
         all_messager_names = []
@@ -61,7 +68,7 @@ def check_dm():
                 messager_name = message_room.find_element(By.XPATH, f".//div[@class='{messager_name_class}']").text
                 all_messager_names.append(messager_name)
                 message_room.click()
-                time.sleep(15)
+                time.sleep(5)
                 message_types = []
                 message_texts = []
                 #reversing messages, so that the latest message will be the first one in the list
@@ -72,9 +79,11 @@ def check_dm():
                 helper_elem.send_keys(Keys.END)
                 print('send to end')
                 for message_elem in message_elems:
+                    print('message lopping')
                     #looping through message elements, if there is reaction, we break the for  loop
                     message_reactions = message_elem.find_elements(By.XPATH, f".//div[@class='{reaction_elem}']")
                     if len(message_reactions) == 0:
+                        print('no reaction')
                         first_tapable_sections = message_elem.find_elements(By.XPATH, \
                             f".//div[@class='{shared_post_message_section_class}']")
                         second_tapable_sections = message_elem.find_elements(By.XPATH, \
@@ -83,6 +92,7 @@ def check_dm():
                         #if there is tapable section, it is shared post or reel, otherwise, it can be text, 
                         # picture, story or reel without caption (I couldn't find a way to like this type reel). 
                         if len(first_tapable_sections) != 0 or len(second_tapable_sections) != 0:
+                            print('have tapable section')
                             tapable_section = None
                             driver.execute_script("arguments[0].scrollIntoView();", message_elem)
                             if len(first_tapable_sections) != 0:
@@ -92,8 +102,8 @@ def check_dm():
                                 tapable_section = second_tapable_sections[0]
                                 author_name = tapable_section.text
                             if tapable_section:
+                                print('if tapable section')
                                 if like_possibility() or message_elems.index(message_elem) == 0:
-                                    time.sleep(60)
                                     action.double_click(tapable_section).perform()
                                     time.sleep(3)
                                 #adding to messages texts to  result dictinoary 
@@ -102,6 +112,7 @@ def check_dm():
                                 message_texts.append(message_text)
                                 message_types.append(message_type)                               
                         else: 
+                            print('not tapable section')
                             message_type = None
                             story_headers = message_elem.find_elements(By.XPATH, f".//h1[@class='{story_header}']")
                             image_message_elems = message_elem.find_elements(By.XPATH, f".//div[@class='{img_class}']")
@@ -117,18 +128,23 @@ def check_dm():
                             message_types.append(message_type)
                             #liking the message if it is the first one
                             if message_elems.index(message_elem) == 0:
+                                print('liking first')
                                 if len(story_headers) != 0:
                                     tapable_section = story_headers[0]
                                 else:
-                                    tapable_section = message_elem.find_element(By.XPATH, ".//div[@class='_aa06']")
+                                    tapable_section = message_elem.find_element(By.XPATH, ".//div[@class=' _ac1n']")
                                 action.double_click(tapable_section).perform()
-                                time.sleep(4)
+                                time.sleep(2)
                     else:
                         print('yetib keldik')
                         break
                 all_message_types.append(message_types)
                 all_message_texts.append(message_texts)
         
+        all_messager_names.reverse()
+        all_message_types.reverse()
+        all_message_texts.reverse()
+
         return_dict = {
             'names': all_messager_names,
             'types': all_message_types,

@@ -1,4 +1,5 @@
 #classes
+notification_number_icon = "x10l6tqk xmn1u35 xn0lweg x13v4lgv x1vjfegm"
 message_rooms_class = '_ab8w  _ab94 _ab97 _ab9f _ab9k _ab9p  _ab9_ _aba8 _abcm'
 new_notification_class = "_ab8w  _ab94 _ab97 _ab9h _ab9k _ab9p  _abb0 _abcm"
 messager_name_class = "_ab8w  _ab94 _ab99 _ab9f _ab9m _ab9p _abcm"
@@ -21,5 +22,6 @@ default_text = "Nimadir kerak bo'lsa pastdagi buyruqlardan murojaat qil!"
 wrong_type_of_message = "{} noto'g'ri yozilgan.\nKallangni ishlatib, bitta qatorda, ajratmasdan, to'g'ri yoz!"
 deleting_credentials_message = "Hayotda o'chirmayman!"
 checking_dm_message = "Xabarlarni tekshirayapman..."
-you_have_messages_text = "Senda {}ta xabar bor"
+you_have_messages_text = "*Senda {}ta xabar bor*"
 zero_messages_text = "Senda xabarlar yo'q."
+
