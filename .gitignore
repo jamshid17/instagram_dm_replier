@@ -1,0 +1,12 @@
+__pycache__/
+.ipynb_checkpoints/
+mp5joo1k.instagram/
+env/
+.env
+data.db
+db_worker.py
+geckodriver.log
+test.ipynb
+workspace.code-workspace
+req.txt
+.DS_Store
