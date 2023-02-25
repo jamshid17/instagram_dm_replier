@@ -12,6 +12,10 @@ shared_reel_author_name_section_class = "_ab8w  _ab94 _ab97 _ab9f _ab9k _ab9o _a
 reaction_elem = "_acfk _acfl _acfm"
 story_header = "_aacl _aacn _aacu _aacy _aad6 _aadc"
 img_class = " _ab8x  _ab94 _ab99 _ab9f _ab9m _ab9p _abcm"
+gif_class = "_ab8w  _ab94 _ab99 _ab9h _ab9m _ab9p _abcm"
+emoji_class = " _ac1w _ac1x"
+audio_class = "_ab8w  _ab94 _ab99 _ab9f _ab9k _ab9p  _abb0 _abbk _abcm"
+
 
 #bot_stuff
 default_text = "Nimadir kerak bo'lsa pastdagi buyruqlardan murojaat qil!"

@@ -84,7 +84,7 @@ def check_dm():
                         message_reactions = message_elem.find_elements(
                             By.XPATH, f".//div[@class='{reaction_elem}']"
                             )
-                        if len(message_reactions) != 0:
+                        if len(message_reactions) == 0:
 
                             print('no reaction')
                             first_tapable_sections = message_elem.find_elements(By.XPATH, \
@@ -123,14 +123,32 @@ def check_dm():
                                 image_message_elems = message_elem.find_elements(
                                     By.XPATH, f".//div[@class='{img_class}']"
                                     )
+                                gif_message_elems = message_elem.find_elements(
+                                    By.XPATH, f".//div[@class='{gif_class}']"
+                                    )
+                                emoji_message_elems = message_elem.find_elements(
+                                    By.XPATH, f".//div[@class='{emoji_class}']"
+                                    )
+                                audio_message_elems = message_elem.find_elements(
+                                    By.XPATH, f".//div[@class='{audio_class}']"
+                                    )
                                 #collecting messages
                                 if len(story_headers) != 0:
                                     message_type = 'story' 
                                 elif len(image_message_elems) != 0:
                                     message_type = 'image'
+                                elif len(gif_message_elems) != 0:
+                                    message_type = 'gif'
+                                elif len(emoji_message_elems) != 0:
+                                    message_type = 'emoji'
+                                elif len(audio_message_elems) != 0:
+                                    message_type = 'audio'
                                 else:
                                     message_type = 'text'
-                                message_text = message_elem.text
+                                if "to see this type of message." in message_elem.text:
+                                    message_text = 'Wrong type of message'
+                                else:
+                                    message_text = message_elem.text
                                 message_texts.append(message_text)
                                 message_types.append(message_type)
                                 #liking the message if it is the first one
@@ -144,9 +162,9 @@ def check_dm():
                                             )
                                     action.double_click(tapable_section).perform()
                                     time.sleep(2)
-                    else:
-                        print('yetib keldik')
-                        break
+                        else:
+                            print('yetib keldik')
+                            break
 
                 all_messager_names.append(messager_name)
                 all_message_types.append(message_types)

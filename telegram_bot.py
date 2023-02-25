@@ -22,7 +22,8 @@ def markdown_escaper(text):
     escaping_chars = [
         '[', ']', '(', ')', '~', 
         '`', '>', '#', '+', '-', 
-        '=', '|', '{', '}', '.', '!',
+        '=', '|', '{', '}', '.', 
+        '!', '_',
     ]
     for char in escaping_chars:
         text = text.replace(char, '\{}'.format(char))
@@ -52,15 +53,14 @@ def handle_command_start(message):
         else:
             overall_text = you_have_messages_text.format(len(dm_results['names'])) + ':\n\n'
             for sender_name, sender_message_types, sender_message_texts in zip(dm_results['names'], dm_results['types'], dm_results['texts']):
-                sender_text = f"{sender_name}:\n"
+                sender_text = f"_{sender_name}_:\n"
                 for message_type, message_text in zip(sender_message_types, sender_message_texts):
-                    sender_text += f"{message_type}:  {message_text}\n"
+                    sender_text += markdown_escaper(f"{message_type}:  {message_text}\n")
                 sender_text = sender_text[:-1]
 
                 overall_text += sender_text + '\n\n'
             overall_text = overall_text[:-1]
-        overall_text = markdown_escaper(overall_text)
-        
+        print(overall_text, "\noverall_text")
         bot.send_message(
             chat_id=message.chat.id, 
             text=overall_text, 
