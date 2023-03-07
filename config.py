@@ -4,7 +4,7 @@ message_rooms_class = '_ab8w  _ab94 _ab97 _ab9f _ab9k _ab9p  _ab9_ _aba8 _abcm'
 new_notification_class = "_ab8w  _ab94 _ab97 _ab9h _ab9k _ab9p  _abb0 _abcm"
 messager_name_class = "_ab8w  _ab94 _ab99 _ab9f _ab9m _ab9p _abcm"
 message_class = "_ab8w  _ab94 _ab96 _ab9f _ab9k _ab9p _abcm"
-message_sender_div_class = "_ab8w  _ab94 _ab99 _ab9f _ab9m _ab9p  _abak _abbi _abcm"
+own_message_div_class = "_acd2 _acd3"
 shared_post_top_section_class = '_ab8w  _ab94 _ab97 _ab9f _ab9k _ab9p  _ab9z _aba9 _abcm'
 shared_post_message_section_class = " _ab8x  _ab94 _ab99 _ab9f _ab9m _ab9p  _ab9z _aba9 _abcm"
 shared_reel_image_section_class = "_acfr"
@@ -23,6 +23,6 @@ dont_know_you_text = "Who the fuck are you\?\!"
 wrong_type_of_message = "{} noto'g'ri yozilgan.\nKallangni ishlatib, bitta qatorda, ajratmasdan, to'g'ri yoz!"
 deleting_credentials_message = "Hayotda o'chirmayman!"
 checking_dm_message = "Xabarlarni tekshirayapman..."
-you_have_messages_text = "*Senda {}ta xabar bor*"
+you_have_messages_text = "*Senda {}ta kishidan xabarlar bor*"
 zero_messages_text = "Senda xabarlar yo'q."
 

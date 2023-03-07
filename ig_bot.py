@@ -13,15 +13,14 @@ BROWSER_PROFILE = env('BROWSER_PROFILE')
 
 
 def like_possibility():
-    return True
-    # rando = random.randint(4, 10)
-    # x = round(rando/10)
-    # if x == 1:
-    #     print('yeah')
-    #     return True
-    # else:
-    #     print('nooo')
-    #     return False
+    rando = random.randint(1, 10)
+    x = round(rando/10)
+    if x == 1:
+        print('yeah')
+        return True
+    else:
+        print('nooo')
+        return False
 
 def check_dm():
     return_dict = {}
@@ -73,12 +72,14 @@ def check_dm():
                 helper_elem = message_elems[0].find_element(By.XPATH, ".//a")
                 helper_elem.send_keys(Keys.END)
                 print('sent to end')
+                print(len(message_elems), ' num of messages')
                 for message_elem in message_elems:
+                    print('text: ', message_elem.text)
                     #checking if message is received, not sent
-                    message_sender_icon_links = message_elem.find_elements(
-                        By.XPATH, f"//div[@class='{message_sender_div_class}']//a"
+                    own_message_divs = message_elem.find_elements(
+                        By.XPATH, f".//div[@class='{own_message_div_class}']"
                     )
-                    if len(message_sender_icon_links) != 0:
+                    if len(own_message_divs) == 0:
                         print('message looping')
                         #looping through message elements, if there is reaction, we break the for  loop
                         message_reactions = message_elem.find_elements(
@@ -165,7 +166,10 @@ def check_dm():
                         else:
                             print('yetib keldik')
                             break
-
+                    else:
+                        print("owner")
+                        #if selenium reaches owner's message, break
+                        break
                 all_messager_names.append(messager_name)
                 all_message_types.append(message_types)
                 all_message_texts.append(message_texts)
