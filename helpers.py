@@ -9,7 +9,7 @@ import random
 def setup_driver(profile_folder):
     fire_options = Options()
     fire_options.profile = profile_folder
-    # fire_options.headless = True
+    fire_options.headless = True
     service = Service(GeckoDriverManager().install())
     driver = webdriver.Firefox(service=service, options=fire_options)
     driver.maximize_window() 
