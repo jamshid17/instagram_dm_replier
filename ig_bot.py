@@ -2,9 +2,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 from config import *
-import random 
 import environ
-from helpers import setup_driver
+from helpers import setup_driver, like_possibility
 
 
 env = environ.Env()
@@ -12,15 +11,6 @@ environ.Env.read_env()
 BROWSER_PROFILE = env('BROWSER_PROFILE')
 
 
-def like_possibility():
-    rando = random.randint(1, 10)
-    x = round(rando/10)
-    if x == 1:
-        print('yeah')
-        return True
-    else:
-        print('nooo')
-        return False
 
 def check_dm():
     return_dict = {}
@@ -71,16 +61,12 @@ def check_dm():
                 #scrolling to the bottom, just in case 
                 helper_elem = message_elems[0].find_element(By.XPATH, ".//a")
                 helper_elem.send_keys(Keys.END)
-                print('sent to end')
-                print(len(message_elems), ' num of messages')
                 for message_elem in message_elems:
-                    print('text: ', message_elem.text)
                     #checking if message is received, not sent
                     own_message_divs = message_elem.find_elements(
                         By.XPATH, f".//div[@class='{own_message_div_class}']"
                     )
                     if len(own_message_divs) == 0:
-                        print('message looping')
                         #looping through message elements, if there is reaction, we break the for  loop
                         message_reactions = message_elem.find_elements(
                             By.XPATH, f".//div[@class='{reaction_elem}']"
@@ -96,7 +82,6 @@ def check_dm():
                             #if there is tapable section, it is shared post or reel, otherwise, it can be text, 
                             # picture, story or reel without caption (I couldn't find a way to like this type reel). 
                             if len(first_tapable_sections) != 0 or len(second_tapable_sections) != 0:
-                                print('tapable section found')
                                 tapable_section = None
                                 driver.execute_script("arguments[0].scrollIntoView();", message_elem)
                                 if len(first_tapable_sections) != 0:
@@ -115,7 +100,6 @@ def check_dm():
                                     message_texts.append(message_text)
                                     message_types.append(message_type)                               
                             else: 
-                                print('tapable section not found')
 
                                 message_type = None
                                 story_headers = message_elem.find_elements(
@@ -154,7 +138,6 @@ def check_dm():
                                 message_types.append(message_type)
                                 #liking the message if it is the first one
                                 if message_elems.index(message_elem) == 0:
-                                    print('liking first')
                                     if len(story_headers) != 0:
                                         tapable_section = story_headers[0]
                                     else:
@@ -164,10 +147,8 @@ def check_dm():
                                     action.double_click(tapable_section).perform()
                                     time.sleep(2)
                         else:
-                            print('yetib keldik')
                             break
                     else:
-                        print("owner")
                         #if selenium reaches owner's message, break
                         break
                 all_messager_names.append(messager_name)

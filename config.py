@@ -20,8 +20,6 @@ audio_class = "_ab8w  _ab94 _ab99 _ab9f _ab9k _ab9p  _abb0 _abbk _abcm"
 #bot_stuff
 default_text = "Nimadir kerak bo'lsa pastdagi buyruqlardan murojaat qil!"
 dont_know_you_text = "Who the fuck are you\?\!"
-wrong_type_of_message = "{} noto'g'ri yozilgan.\nKallangni ishlatib, bitta qatorda, ajratmasdan, to'g'ri yoz!"
-deleting_credentials_message = "Hayotda o'chirmayman!"
 checking_dm_message = "Xabarlarni tekshirayapman..."
 you_have_messages_text = "*Senda {}ta kishidan xabarlar bor*"
 zero_messages_text = "Senda xabarlar yo'q."

@@ -1,9 +1,8 @@
 import telebot
-from telebot import types
 import environ
 from config import *
 from ig_bot import check_dm
-
+from .helpers import markdown_escaper
 
 #reading environ
 env = environ.Env(
@@ -13,29 +12,9 @@ env = environ.Env(
 environ.Env.read_env()
 BOT_KEY = env('TELEGRAM_BOT_KEY')
 ONLY_USER_ID = env('USER_ID')
+
 #starting bot
 bot = telebot.TeleBot(BOT_KEY)
-
-
-
-def markdown_escaper(text):
-    escaping_chars = [
-        '[', ']', '(', ')', '~', 
-        '`', '>', '#', '+', '-', 
-        '=', '|', '{', '}', '.', 
-        '!', '_',
-    ]
-    for char in escaping_chars:
-        text = text.replace(char, '\{}'.format(char))
-    return text
-
-def make_inline_keyboard(list_of_items):
-    markup_lst = []
-    for key, value in list_of_items.items():
-        markup_lst.append([types.InlineKeyboardButton(text=value, callback_data=key)])
-    markup = types.InlineKeyboardMarkup(markup_lst)
-    return markup
-
 
 @bot.message_handler(commands=['start'])
 def handle_command_start(message):
